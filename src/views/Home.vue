@@ -8,11 +8,16 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
-
+import safe from "@/store/safe";
 @Options({
   components: {
     HelloWorld,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  mounted(): void {
+    safe.initialise(this.$store);
+    safe.dispatchInitializeStore();
+  }
+}
 </script>
