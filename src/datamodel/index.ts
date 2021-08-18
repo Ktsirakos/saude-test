@@ -64,6 +64,10 @@ export class Person extends Serialized {
     this.createSearchString();
   }
 
+  /**
+   * Function which will help with searching on multiple fields.
+   * Concats all information on a single string to use that string with String.includes function.
+   */
   createSearchString(): void {
     this.searchString = `${this.name},${this.age},${
       this.gender

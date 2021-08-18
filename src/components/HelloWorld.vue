@@ -1,4 +1,5 @@
 <template>
+  <person-row name="Konstantinos Tsirakos" :age="22" :gender="0" />
   <div class="hello">
     <h1>{{ msg }}</h1>
     <p>
@@ -128,8 +129,11 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-
+import PersonRow from "./PersonRow.vue";
 @Options({
+  components: {
+    PersonRow,
+  },
   props: {
     msg: String,
   },
