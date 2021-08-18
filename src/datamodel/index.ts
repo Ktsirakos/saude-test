@@ -51,6 +51,7 @@ export interface PersonJSON {
 }
 
 export class Person extends Serialized {
+  public searchString = "";
   constructor(
     _id: string,
     public name: string,
@@ -60,6 +61,14 @@ export class Person extends Serialized {
     public preferences: Preferences
   ) {
     super(_id);
+    this.createSearchString();
+  }
+
+  createSearchString(): void {
+    this.searchString = `${this.name},${this.age},${
+      this.gender
+    },${Object.values(this.preferences).reduce((a, b) => a + b + ",", "")}`;
+    console.log(this.searchString);
   }
 
   fromJSON(data: PersonJSON): Person {
