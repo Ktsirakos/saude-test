@@ -33,6 +33,7 @@ input {
   height: 40px;
   border: 0;
   border-bottom: 2px solid red;
+  background: inherit;
 }
 
 img {

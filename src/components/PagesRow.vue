@@ -26,6 +26,10 @@ export default {
       type: Number,
       required: true,
     },
+    people: {
+      type: Array,
+      required: true,
+    },
   },
   setup(props) {
     const range = (start, finish) => {
@@ -56,9 +60,8 @@ export default {
   },
   computed: {
     getNumberOfPages() {
-      const people = this.$store.getters[Getters.GET_ALL_PEOPLE];
-      console.log(this.perPage);
-      return Math.ceil(people.length / this.perPage);
+      console.log(this.people)
+      return Math.ceil(this.people.length / this.perPage);
     },
   },
 };

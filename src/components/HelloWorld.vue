@@ -1,17 +1,22 @@
 <template>
-  <header-row @changedSearchText="filterPeople" />
-  <div class="mainContent">
-    <person-row
-      class="personRow"
-      v-for="person of people"
-      :name="person.name"
-      :age="person.age"
-      :gender="person.gender"
-      :key="person.name"
+  <div class="applicationContainer">
+    <header-row @changedSearchText="filterPeople" />
+    <div class="mainContent">
+      <person-row
+        class="personRow"
+        v-for="person of people"
+        :name="person.name"
+        :age="person.age"
+        :gender="person.gender"
+        :key="person.name"
+      />
+    </div>
+    <pages-row
+      :people="peopleFiltered"
+      :perPage="peoplePerPage"
+      @changed="pageChanged"
     />
   </div>
-  <vue3-chart-js v-bind="{ ...barChart }" />
-  <pages-row :perPage="peoplePerPage" @changed="pageChanged" />
 </template>
 
 <script>
@@ -21,13 +26,12 @@ import PagesRow from "./PagesRow.vue";
 import safe from "@/store/safe";
 import { Getters } from "@/store";
 import Vue3ChartJs from "@j-t-mcc/vue3-chartjs";
-
+import editModal from "./editModal.vue";
 export default {
   components: {
     PersonRow,
     HeaderRow,
     PagesRow,
-    Vue3ChartJs
   },
   props: {
     msg: String,
@@ -80,32 +84,47 @@ export default {
   data() {
     return {
       currentPage: 1,
-      peoplePerPage: 5,
-      seatchText: undefined,
+      peoplePerPage: 6,
+      searchText: undefined,
     };
   },
   computed: {
-    people() {
+    peopleFiltered() {
       const people = this.$store.getters[Getters.GET_ALL_PEOPLE];
       console.log("Recalled");
-      return people
-        .filter((elem) => {
-          if (this.seatchText) {
-            return elem.searchString.includes(this.searchText);
-          } else {
-            return elem;
-          }
-        })
-        .filter(
-          (elem, index) =>
-            index <= this.currentPage * this.peoplePerPage &&
-            index >= this.currentPage - 1 * this.peoplePerPage
+      return people.filter((elem) => {
+        if (this.searchText) {
+          return elem.searchString.includes(this.searchText);
+        } else {
+          return elem;
+        }
+      });
+      // .filter(
+      //   (elem, index) =>
+      //     index < this.currentPage * this.peoplePerPage &&
+      //     index > this.currentPage - 1 * this.peoplePerPage
+      // )
+    },
+    people() {
+      return this.peopleFiltered.filter((elem, index) => {
+        console.log(
+          "From: ",
+          (this.currentPage - 1) * this.peoplePerPage,
+          "To",
+          this.currentPage * this.peoplePerPage
         );
+
+        return (
+          index <= this.currentPage * this.peoplePerPage &&
+          index > (this.currentPage - 1) * this.peoplePerPage
+        );
+      });
     },
   },
   methods: {
     pageChanged(value) {
       this.currentPage = value;
+      console.log(this.currentPage);
     },
     filterPeople(value) {
       this.searchText = value;
@@ -126,5 +145,9 @@ export default {
 
 .personRow {
   margin: 20px 0px;
+}
+
+.applicationContainer {
+  position: relative;
 }
 </style>
