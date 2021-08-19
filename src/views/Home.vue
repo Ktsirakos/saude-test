@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
   </div>
 </template>
@@ -15,9 +14,9 @@ import safe from "@/store/safe";
   },
 })
 export default class Home extends Vue {
-  mounted(): void {
+  async mounted() {
     safe.initialise(this.$store);
-    safe.dispatchInitializeStore();
+    await safe.dispatchInitializeStore();
   }
 }
 </script>

@@ -31,8 +31,8 @@ export default {
   },
   methods: {
     selectRepresentation(value: string) {
-      this.$emit("changed", value);
-      this.selected = value;
+      // this.$emit("changed", value);
+      // this.selected = value;
     },
   },
   setup(props: any) {

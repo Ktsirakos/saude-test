@@ -21,6 +21,10 @@ export const Mutations = {
 export const Actions = {
   INITIALIZE_STORE: "initializeState",
 };
+
+export const Getters = {
+  GET_ALL_PEOPLE: "getAllPeople",
+};
 export default createStore({
   state: initialState,
   mutations: {
@@ -29,7 +33,11 @@ export default createStore({
       console.log(data);
     },
   },
-  getters: {},
+  getters: {
+    getAllPeople(state: State): Person[] {
+      return state.people;
+    },
+  },
   actions: {
     initializeState(ctx: ActionContext<State, RootState>): Promise<void> {
       return new Promise((resolve, reject) => {

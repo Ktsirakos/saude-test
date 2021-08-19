@@ -1,5 +1,6 @@
+import { Person } from "@/datamodel";
 import { mapActions, Store } from "vuex";
-import { Actions, State } from ".";
+import { Actions, Getters, State } from ".";
 
 let store: Store<State>;
 let namespace: string;
@@ -14,6 +15,9 @@ const safe = {
   },
   isInitialised(): boolean {
     return Boolean(store);
+  },
+  getAllPeople(): Person[] {
+    return store.getters[namespace + Getters.GET_ALL_PEOPLE];
   },
   dispatchInitializeStore(): Promise<void> {
     return store.dispatch(namespace + Actions.INITIALIZE_STORE);

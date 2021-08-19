@@ -5,16 +5,13 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 export default {
   props: {},
   data() {
     return {
       value: "",
     };
-  },
-  setup(props: any) {
-    return {};
   },
   methods: {
     emitValue() {

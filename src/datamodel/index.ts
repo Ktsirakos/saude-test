@@ -58,7 +58,8 @@ export class Person extends Serialized {
     public age: number,
     public gender: Gender,
     public location: Location,
-    public preferences: Preferences
+    public preferences: Preferences,
+    public eyeColor: string
   ) {
     super(_id);
     this.createSearchString();
@@ -82,7 +83,8 @@ export class Person extends Serialized {
       data.age,
       data.gender === "male" ? Gender.MALE : Gender.FEMALE,
       data.location,
-      data.preferences
+      data.preferences,
+      data.eyeColor
     );
   }
 

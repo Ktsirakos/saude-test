@@ -1,6 +1,6 @@
 <template>
   <div class="headerContainer">
-    <search-bar @changed="filterResults" />
+    <search-bar @changed="(value) => $emit('changedSearchText', value)" />
     <representation-icons @changed="changeRepresentation" />
   </div>
 </template>
@@ -17,12 +17,6 @@ export default {
     RepresentationIcons,
   },
   props: {},
-  setup(props: any) {
-    const filterResults = (value: string) => console.log(value);
-    return {
-      filterResults,
-    };
-  },
 };
 </script>
 
