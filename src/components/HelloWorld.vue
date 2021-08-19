@@ -1,4 +1,9 @@
 <template>
+  <header-row />
+  <person-row name="Konstantinos Tsirakos" :age="22" :gender="0" />
+  <person-row name="Konstantinos Tsirakos" :age="22" :gender="0" />
+  <person-row name="Konstantinos Tsirakos" :age="22" :gender="1" />
+  <person-row name="Konstantinos Tsirakos" :age="22" :gender="1" />
   <person-row name="Konstantinos Tsirakos" :age="22" :gender="0" />
   <div class="hello">
     <h1>{{ msg }}</h1>
@@ -130,9 +135,11 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import PersonRow from "./PersonRow.vue";
+import HeaderRow from "./HeaderRow.vue";
 @Options({
   components: {
     PersonRow,
+    HeaderRow,
   },
   props: {
     msg: String,
