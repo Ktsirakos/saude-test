@@ -52,6 +52,7 @@ export interface PersonJSON {
 
 export class Person extends Serialized {
   public searchString = "";
+  public country = "";
   constructor(
     _id: string,
     public name: string,
@@ -63,6 +64,7 @@ export class Person extends Serialized {
   ) {
     super(_id);
     this.createSearchString();
+    // this.extractCountry();
   }
 
   /**
@@ -75,6 +77,11 @@ export class Person extends Serialized {
     },${Object.values(this.preferences).reduce((a, b) => a + b + ",", "")}`;
     console.log(this.searchString);
   }
+
+  // extractCountry() {
+  //   let country = country_reverse_geocoding(47.3, 0.7);
+  //   console.log(country.getCountry()); // France
+  // }
 
   fromJSON(data: PersonJSON): Person {
     return new Person(
