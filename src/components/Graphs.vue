@@ -5,6 +5,16 @@
     <graph-entry title="Eye color Bar" :data="eyeColorBar" />
     <graph-entry title="Age Pie" :data="pieAge" />
     <graph-entry title="Age Bar" :data="barChartAge" />
+
+    <div>
+      <h2>Preferences</h2>
+      <graph-entry
+        v-for="preferenceGraph of preferenceGraphs"
+        :key="preferenceGraph.title"
+        :title="preferenceGraph.title"
+        :data="preferenceGraph.data"
+      />
+    </div>
   </div>
 </template>
 
@@ -118,12 +128,41 @@ export default {
       },
     };
 
+    const preferenceGraphs = Object.keys(graphData.preferences).map((elem) => {
+      return {
+        title: elem,
+        data: {
+          type: "pie",
+          data: {
+            labels: Object.keys(graphData.preferences[elem]),
+            datasets: [
+              {
+                backgroundColor: [
+                  "#41B883",
+                  "#5fa9b4",
+                  "#4dd360",
+                  "#6e7caf",
+                  "#f7fd45",
+                  "#59aae7",
+                  "#fb6922",
+                ],
+                data: Object.keys(graphData.preferences[elem]).map(
+                  (option) => graphData.preferences[elem][option].length
+                ),
+              },
+            ],
+          },
+        },
+      };
+    });
+
     return {
       pieGender,
       eyeColor,
       pieAge,
       barChartAge,
       eyeColorBar,
+      preferenceGraphs,
     };
   },
 };
