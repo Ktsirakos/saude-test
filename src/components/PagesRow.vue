@@ -3,7 +3,7 @@
     <img src="" />
     <span>
       <button
-        :class="selectedPage === pageNumber ? 'selected' : ''"
+        :class="currentPage === pageNumber ? 'selected' : ''"
         v-for="pageNumber of range(1, getNumberOfPages)"
         @click="() => changedSelectedPage(pageNumber)"
         :key="pageNumber"
@@ -16,10 +16,6 @@
 </template>
 
 <script>
-import safe from "../store/safe";
-import { computed } from "vue";
-import { Person } from "@/datamodel";
-import { Getters } from "../store/index";
 export default {
   props: {
     perPage: {
@@ -29,6 +25,11 @@ export default {
     people: {
       type: Array,
       required: true,
+    },
+    currentPage: {
+      type: Number,
+      required: false,
+      default: 1,
     },
   },
   setup(props) {
@@ -48,19 +49,18 @@ export default {
   },
   data() {
     return {
-      selectedPage: 1,
       peoplePerPage: 6,
     };
   },
   methods: {
     changedSelectedPage(value) {
-      this.selectedPage = value;
+      // this.selectedPage = value;
       this.$emit("changed", value);
     },
   },
   computed: {
     getNumberOfPages() {
-      console.log(this.people)
+      console.log(this.people);
       return Math.ceil(this.people.length / this.perPage);
     },
   },

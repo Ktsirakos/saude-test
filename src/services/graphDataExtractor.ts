@@ -1,15 +1,21 @@
 import { Gender, Person } from "@/datamodel";
+import { RootState, State } from "@/store";
 import safe from "@/store/safe";
+import { Store } from "vuex";
 
-export function extractDataForGraphs() {
+export function extractDataForGraphs(): {
+  gender: { [key: string]: Person[] };
+  age: { [key: string]: Person[] };
+  eyeColor: { [key: string]: Person[] };
+} {
   const people = safe.getAllPeople();
 
   return {
     gender: extractGenderData(people),
     age: extractAgeData(people),
     eyeColor: extractEyeColorData(people),
-    preferences: extractPreferencesData(people),
-    country: extractCountryData(people),
+    // preferences: extractPreferencesData(people),
+    // country: extractCountryData(people),
   };
 }
 
@@ -21,7 +27,7 @@ function extractGenderData(people: Person[]) {
 
   let slot = "";
   for (const person of people) {
-    if (person.gender < Gender.MALE) {
+    if (person.gender === Gender.MALE) {
       slot = "male";
     } else {
       slot = "female";
@@ -74,5 +80,5 @@ function extractEyeColorData(people: Person[]) {
   return eyeColor;
 }
 
-function extractPreferencesData(people: Person[]) {}
-function extractCountryData(people: Person[]) {}
+// function extractPreferencesData(people: Person[]) {}
+// function extractCountryData(people: Person[]) {}

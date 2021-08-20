@@ -14,6 +14,7 @@
     <pages-row
       :people="peopleFiltered"
       :perPage="peoplePerPage"
+      :currentPage="currentPage"
       @changed="pageChanged"
     />
   </div>
@@ -84,26 +85,25 @@ export default {
   data() {
     return {
       currentPage: 1,
-      peoplePerPage: 6,
+      peoplePerPage: 5,
       searchText: undefined,
     };
   },
   computed: {
     peopleFiltered() {
       const people = this.$store.getters[Getters.GET_ALL_PEOPLE];
-      console.log("Recalled");
       return people.filter((elem) => {
         if (this.searchText) {
+          console.log(
+            elem.searchString,
+            this.searchText,
+            elem.searchString.includes(this.searchText)
+          );
           return elem.searchString.includes(this.searchText);
         } else {
           return elem;
         }
       });
-      // .filter(
-      //   (elem, index) =>
-      //     index < this.currentPage * this.peoplePerPage &&
-      //     index > this.currentPage - 1 * this.peoplePerPage
-      // )
     },
     people() {
       return this.peopleFiltered.filter((elem, index) => {
@@ -115,8 +115,8 @@ export default {
         );
 
         return (
-          index <= this.currentPage * this.peoplePerPage &&
-          index > (this.currentPage - 1) * this.peoplePerPage
+          index < this.currentPage * this.peoplePerPage &&
+          index >= (this.currentPage - 1) * this.peoplePerPage
         );
       });
     },
@@ -128,6 +128,7 @@ export default {
     },
     filterPeople(value) {
       this.searchText = value;
+      this.currentPage = 1;
     },
   },
 };
