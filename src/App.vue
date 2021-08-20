@@ -4,7 +4,6 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import HeaderRow from "./components/HeaderRow.vue";
 export default {
   components: {
