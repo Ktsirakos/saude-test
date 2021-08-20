@@ -1,7 +1,17 @@
 <template>
+  <header-row @changedSearchText="filterPeople" />
   <router-view />
 </template>
 
+<script lang="ts">
+import Vue from "vue";
+import HeaderRow from "./components/HeaderRow.vue";
+export default {
+  components: {
+    HeaderRow,
+  },
+};
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

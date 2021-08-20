@@ -21,7 +21,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 export default {
   props: {},
   data() {
@@ -30,12 +30,12 @@ export default {
     };
   },
   methods: {
-    selectRepresentation(value: string) {
-      // this.$emit("changed", value);
-      // this.selected = value;
+    selectRepresentation(value) {
+      this.$emit("changed", value);
+      this.selected = value;
     },
   },
-  setup(props: any) {
+  setup(props) {
     return {};
   },
 };
