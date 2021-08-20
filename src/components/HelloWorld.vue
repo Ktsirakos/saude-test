@@ -4,9 +4,7 @@
       <person-row
         class="personRow"
         v-for="person of people"
-        :name="person.name"
-        :age="person.age"
-        :gender="person.gender"
+        :person="person"
         :key="person.name"
       />
     </div>
@@ -21,12 +19,9 @@
 
 <script>
 import PersonRow from "./PersonRow.vue";
-import HeaderRow from "./HeaderRow.vue";
 import PagesRow from "./PagesRow.vue";
-import safe from "@/store/safe";
 import { Getters } from "@/store";
-import Vue3ChartJs from "@j-t-mcc/vue3-chartjs";
-import editModal from "./editModal.vue";
+
 export default {
   components: {
     PersonRow,
