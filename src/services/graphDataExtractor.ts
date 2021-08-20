@@ -7,6 +7,7 @@ export function extractDataForGraphs(): {
   gender: { [key: string]: Person[] };
   age: { [key: string]: Person[] };
   eyeColor: { [key: string]: Person[] };
+  preferences: { [key: string]: { [key: string]: any } };
 } {
   const people = safe.getAllPeople();
 
@@ -14,7 +15,7 @@ export function extractDataForGraphs(): {
     gender: extractGenderData(people),
     age: extractAgeData(people),
     eyeColor: extractEyeColorData(people),
-    // preferences: extractPreferencesData(people),
+    preferences: extractPreferencesData(people),
     // country: extractCountryData(people),
   };
 }
@@ -80,5 +81,56 @@ function extractEyeColorData(people: Person[]) {
   return eyeColor;
 }
 
-// function extractPreferencesData(people: Person[]) {}
+function extractPreferencesData(people: Person[]) {
+  // {
+  //   "_id": "5d5d7ad6e25b8df776d4ed00",
+  //   "age": 40,
+  //   "eyeColor": "blue",
+  //   "name": "Tamra Carver",
+  //   "gender": "female",
+  //   "location": {
+  //     "latitude": -31.147883,
+  //     "longitude": 142.260584
+  //   },
+  //   "preferences": {
+  //     "pet": "dog",
+  //     "fruit": "mango"
+  //   }
+  // },
+
+  const preferences: { [key: string]: { [key: string]: any[] } } = {};
+
+  //Getting available key options
+  const preferencesArray: string[] = people
+    .map((elem) => elem.preferences)
+    .map((elem) => Object.keys(elem))
+    .reduce((previousValue, currentValue) => {
+      return [...previousValue, ...currentValue];
+    })
+    .filter((v, i, array) => array.indexOf(v) === i);
+
+  //For every key option we retrieve available entries
+  for (const preferenceKey of preferencesArray) {
+    preferences[preferenceKey] = {};
+
+    const availableOptions = people
+      .map((elem) => elem.preferences)
+      .map((elem) => elem[preferenceKey])
+      .filter((v, i, array) => array.indexOf(v) === i);
+
+    for (const option of availableOptions) {
+      preferences[preferenceKey][option] = [];
+    }
+  }
+
+  //Fill datasets with persons according to their preferences
+  for (const person of people) {
+    for (const preferenceOption of Object.keys(person.preferences)) {
+      preferences[preferenceOption][person.preferences[preferenceOption]].push(
+        person
+      );
+    }
+  }
+  return preferences;
+}
 // function extractCountryData(people: Person[]) {}

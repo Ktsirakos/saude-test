@@ -36,8 +36,7 @@ export interface Location {
 }
 
 export interface Preferences {
-  pet: string;
-  fruit: string;
+  [key: string]: string;
 }
 
 export interface PersonJSON {

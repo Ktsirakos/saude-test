@@ -12,12 +12,6 @@
     >
       <img src="pie-chart-outlined.svg" />
     </button>
-    <button
-      @click="() => selectRepresentation('bar')"
-      :class="selected === 'bar' ? 'selected' : ''"
-    >
-      <img src="chart-bar.svg" />
-    </button>
   </div>
 </template>
 

@@ -31,8 +31,6 @@ export default {
       this.currentRepresentation = value;
       if (value === "pie") {
         this.$router.push(`/graphs?q=${query ? query : ""}`);
-      } else if (value === "bar") {
-        this.$router.push(`/bar-graphs?q=${query ? query : ""}`);
       } else {
         this.$router.push(`/?q=${query ? query : ""}`);
       }
