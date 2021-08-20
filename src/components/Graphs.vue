@@ -1,9 +1,10 @@
 <template>
   <div>
     <graph-entry title="Gender" :data="pieGender" />
-    <graph-entry title="Eye color" :data="eyeColor" />
-    <graph-entry title="Age" :data="pieAge" />
-    <graph-entry title="Age" :data="barChart" />
+    <graph-entry title="Eye color Pie" :data="eyeColor" />
+    <graph-entry title="Eye color Bar" :data="eyeColorBar" />
+    <graph-entry title="Age Pie" :data="pieAge" />
+    <graph-entry title="Age Bar" :data="barChartAge" />
   </div>
 </template>
 
@@ -16,6 +17,7 @@ export default {
   props: {},
   setup(props) {
     const graphData = extractDataForGraphs();
+
     const eyeColor = {
       type: "pie",
       data: {
@@ -58,7 +60,30 @@ export default {
       },
     };
 
-    const barChart = {
+    const eyeColorBar = {
+      type: "bar",
+      options: {
+        min: 0,
+        max: 100,
+        responsive: true,
+        plugins: {
+          legend: {
+            position: "top",
+          },
+        },
+      },
+      data: {
+        labels: Object.keys(graphData.eyeColor),
+        datasets: [
+          {
+            label: "#People",
+            backgroundColor: Object.keys(graphData.eyeColor),
+            data: Object.values(graphData.eyeColor).map((elem) => elem.length),
+          },
+        ],
+      },
+    };
+    const barChartAge = {
       type: "bar",
       options: {
         min: 0,
@@ -97,7 +122,8 @@ export default {
       pieGender,
       eyeColor,
       pieAge,
-      barChart,
+      barChartAge,
+      eyeColorBar,
     };
   },
 };
