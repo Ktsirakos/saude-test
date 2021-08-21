@@ -17,6 +17,16 @@
         @changedField="(value) => changedField(field, value)"
         :key="field"
       />
+      <span>
+        <p>Preferences</p>
+        <edit-input
+          v-for="field of Object.keys(person.preferences)"
+          :title="field"
+          :value="person.preferences[field]"
+          @changedField="(value) => changedPreference(field, value)"
+          :key="field"
+        />
+      </span>
     </span>
     <button class="editButton" v-if="edit" @click="save">Save</button>
   </div>
@@ -42,7 +52,7 @@ export default {
   },
   setup(props) {
     const fields = computed(() => {
-      return ["name", "age", "gender", "eyeColor"];
+      return ["name", "eyeColor"];
     });
 
     return {
@@ -52,7 +62,9 @@ export default {
   data() {
     return {
       edit: false,
-      toChange: {},
+      toChange: {
+        preferences: {},
+      },
     };
   },
   methods: {
@@ -61,6 +73,11 @@ export default {
     },
     save() {
       console.log(this.person, this.toChange);
+
+      this.toChange.preferences = {
+        ...this.person.preferences,
+        ...this.toChange.preferences,
+      };
 
       const newPerson = {
         ...this.person.toJSON(),
@@ -73,6 +90,9 @@ export default {
     changedField(field, value) {
       console.log(field, value);
       this.toChange[field] = value;
+    },
+    changedPreference(field, value) {
+      this.toChange.preferences[field] = value;
     },
   },
 };
