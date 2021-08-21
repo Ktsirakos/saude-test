@@ -3,11 +3,16 @@
   <router-view />
 </template>
 
-<script lang="ts">
+<script>
 import HeaderRow from "./components/HeaderRow.vue";
+import safe from "./store/safe";
 export default {
   components: {
     HeaderRow,
+  },
+  async mounted() {
+    safe.initialise(this.$store);
+    await safe.dispatchInitializeStore();
   },
 };
 </script>

@@ -17,9 +17,5 @@ export default {
   components: {
     List,
   },
-  async mounted() {
-    safe.initialise(this.$store);
-    await safe.dispatchInitializeStore();
-  },
 };
 </script>

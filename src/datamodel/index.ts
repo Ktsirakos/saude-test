@@ -94,6 +94,18 @@ export class Person extends Serialized {
     );
   }
 
+  toJSON(): PersonJSON {
+    return {
+      _id: this.id(),
+      age: this.age,
+      eyeColor: this.eyeColor,
+      name: this.name,
+      gender: this.gender === 0 ? 'male' : 'female',
+      location: this.location,
+      preferences: this.preferences,
+    }
+  }
+
   fromPersonJSONArray(data: PersonJSON[]): Person[] {
     return data.map((elem: PersonJSON) => Person.prototype.fromJSON(elem));
   }

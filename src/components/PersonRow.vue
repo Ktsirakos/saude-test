@@ -14,6 +14,7 @@
         v-for="field of fields"
         :title="field"
         :value="person[field]"
+        @changedField="(value) => changedField(field, value)"
         :key="field"
       />
     </span>
@@ -26,6 +27,8 @@ import { Person } from "@/datamodel";
 import GenderIcon from "./GenderIcon.vue";
 import EditInput from "./EditInput.vue";
 import { computed } from "vue";
+import safe from "../store/safe";
+
 export default {
   components: {
     GenderIcon,
@@ -49,6 +52,7 @@ export default {
   data() {
     return {
       edit: false,
+      toChange: {},
     };
   },
   methods: {
@@ -56,7 +60,19 @@ export default {
       this.edit = !this.edit;
     },
     save() {
-      console.log(this.person);
+      console.log(this.person, this.toChange);
+
+      const newPerson = {
+        ...this.person.toJSON(),
+        ...this.toChange,
+      };
+
+      safe.commitChangePerson(Person.prototype.fromJSON(newPerson));
+      this.edit = false;
+    },
+    changedField(field, value) {
+      console.log(field, value);
+      this.toChange[field] = value;
     },
   },
 };

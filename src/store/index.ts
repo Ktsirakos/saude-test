@@ -16,6 +16,7 @@ const initialState: State = {
 
 export const Mutations = {
   SET_PEOPLE: "setPeople",
+  CHANGE_PERSON: "changePerson",
 };
 
 export const Actions = {
@@ -31,6 +32,17 @@ export default createStore({
     setPeople(state: State, data: Person[]): void {
       state.people = data;
       console.log(data);
+    },
+    changePerson(
+      state: State,
+      payload: {
+        person: Person;
+      }
+    ) {
+      const curr = state.people;
+      curr[curr.findIndex((elem) => elem.id() === payload.person.id())] =
+        payload.person;
+      state.people = curr;
     },
   },
   getters: {

@@ -1,6 +1,6 @@
 import { Person } from "@/datamodel";
 import { mapActions, Store } from "vuex";
-import { Actions, Getters, State } from ".";
+import { Actions, Getters, Mutations, State } from ".";
 
 let store: Store<State>;
 let namespace: string;
@@ -15,6 +15,11 @@ const safe = {
   },
   isInitialised(): boolean {
     return Boolean(store);
+  },
+  commitChangePerson(person: Person): void {
+    return store.commit(namespace + Mutations.CHANGE_PERSON, {
+      person,
+    });
   },
   getAllPeople(): Person[] {
     return store.getters[namespace + Getters.GET_ALL_PEOPLE];

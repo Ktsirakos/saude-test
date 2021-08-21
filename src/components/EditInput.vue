@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>{{ title }}</p>
-    <input :value="value" @input="changedValue" />
+    <input v-model="inputValue" @input="changedValue" />
   </div>
 </template>
 
@@ -12,15 +12,19 @@ export default {
       type: String,
       required: true,
     },
-    value: {
-      type: String,
-      required: true,
-    },
+    value: String || Number,
+  },
+  mounted() {
+    this.inputValue = this.value;
+  },
+  data() {
+    return {
+      inputValue: "",
+    };
   },
   methods: {
     changedValue(value) {
-      this.$emit("input", value);
-      console.log(value);
+      this.$emit("changedField", this.inputValue);
     },
   },
 };

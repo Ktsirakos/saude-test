@@ -12,8 +12,8 @@ export default {
     GraphsComponent,
   },
   async mounted() {
-    safe.initialise(this.$store);
-    await safe.dispatchInitializeStore();
+    // safe.initialise(this.$store);
+    // await safe.dispatchInitializeStore();
   },
 };
 </script>
