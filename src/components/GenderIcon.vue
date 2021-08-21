@@ -7,7 +7,6 @@
 </template>
 
 <script lang="ts">
-import { Gender } from "@/datamodel";
 import { computed } from "vue";
 
 export default {
