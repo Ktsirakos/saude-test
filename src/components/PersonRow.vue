@@ -6,7 +6,7 @@
       </div>
       <div class="info">
         <p>Age: {{ person.age }}</p>
-        <gender-icon :gender="person.gender" />
+        <gender-icon :gender="gender" />
       </div>
     </button>
     <span v-if="edit" class="editFields">
@@ -27,6 +27,31 @@
           :key="field"
         />
       </span>
+      <div class="genderSelectionContainer">
+        <p>gender</p>
+        <span class="genderSelection">
+          <span>
+            <input
+              @input="() => genderChanged('male')"
+              v-model="gender"
+              :checked="gender === 'male'"
+              type="radio"
+              value="male"
+            />
+            <label>Male</label>
+          </span>
+          <span>
+            <input
+              @input="() => genderChanged('female')"
+              v-model="gender"
+              :checked="gender === 'female'"
+              type="radio"
+              value="female"
+            />
+            <label>Female</label>
+          </span>
+        </span>
+      </div>
     </span>
     <button class="editButton" v-if="edit" @click="save">Save</button>
   </div>
@@ -52,7 +77,7 @@ export default {
   },
   setup(props) {
     const fields = computed(() => {
-      return ["name", "eyeColor"];
+      return ["name", "age", "eyeColor"];
     });
 
     return {
@@ -62,6 +87,7 @@ export default {
   data() {
     return {
       edit: false,
+      gender: this.person.gender ? "female" : "male",
       toChange: {
         preferences: {},
       },
@@ -72,13 +98,13 @@ export default {
       this.edit = !this.edit;
     },
     save() {
-      console.log(this.person, this.toChange);
-
+      console.log(this.toChange);
       this.toChange.preferences = {
         ...this.person.preferences,
         ...this.toChange.preferences,
       };
 
+      debugger;
       const newPerson = {
         ...this.person.toJSON(),
         ...this.toChange,
@@ -93,6 +119,11 @@ export default {
     },
     changedPreference(field, value) {
       this.toChange.preferences[field] = value;
+    },
+    genderChanged(value) {
+      console.log(value);
+      this.gender = value;
+      this.toChange.gender = value;
     },
   },
 };
@@ -149,5 +180,16 @@ export default {
   color: white;
   border-radius: 8px;
   align-self: flex-end;
+}
+
+.genderSelectionContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.genderSelection span {
+  margin-right: 10px;
 }
 </style>

@@ -10,7 +10,7 @@ export default {
   components: {
     HeaderRow,
   },
-  async mounted() {
+  async created() {
     safe.initialise(this.$store);
     await safe.dispatchInitializeStore();
   },

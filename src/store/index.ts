@@ -39,6 +39,7 @@ export default createStore({
         person: Person;
       }
     ) {
+      debugger;
       const curr = state.people;
       curr[curr.findIndex((elem) => elem.id() === payload.person.id())] =
         payload.person;

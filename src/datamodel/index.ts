@@ -100,10 +100,10 @@ export class Person extends Serialized {
       age: this.age,
       eyeColor: this.eyeColor,
       name: this.name,
-      gender: this.gender === 0 ? 'male' : 'female',
+      gender: this.gender === 0 ? "male" : "female",
       location: this.location,
       preferences: this.preferences,
-    }
+    };
   }
 
   fromPersonJSONArray(data: PersonJSON[]): Person[] {

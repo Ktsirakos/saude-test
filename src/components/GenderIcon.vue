@@ -18,11 +18,11 @@ export default {
   },
   setup(props: any) {
     const getIcon = computed(() =>
-      props.gender === Gender.MALE ? "gender-male.svg" : "gender-female.svg"
+      props.gender === "male" ? "gender-male.svg" : "gender-female.svg"
     );
 
     const getBarClass = computed(() =>
-      props.gender === Gender.MALE ? "male" : "female"
+      props.gender === "male" ? "male" : "female"
     );
 
     return {
