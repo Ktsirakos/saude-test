@@ -1,9 +1,11 @@
 <template>
   <div>
     <img src="" />
-    <span>
+    <span class="pagesButtons">
       <button
-        :class="currentPage === pageNumber ? 'selected' : ''"
+        :class="
+          currentPage === pageNumber ? 'selected' : `notSelected${pageNumber}`
+        "
         v-for="pageNumber of range(1, getNumberOfPages)"
         @click="() => changedSelectedPage(pageNumber)"
         :key="pageNumber"

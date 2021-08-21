@@ -1,12 +1,14 @@
 <template>
   <div class="iconsContainer">
     <button
+      id="listRepresentationButton"
       @click="() => selectRepresentation('list')"
       :class="selected === 'list' ? 'selected' : ''"
     >
       <img src="list-line.svg" />
     </button>
     <button
+      id="graphRepresentationButton"
       @click="() => selectRepresentation('pie')"
       :class="selected === 'pie' ? 'selected' : ''"
     >

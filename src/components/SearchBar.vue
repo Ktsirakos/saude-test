@@ -1,7 +1,7 @@
 <template>
   <div class="searchBarContainer">
     <img src="search.svg" />
-    <input v-model="value" @input="emitValue" placeholder="Search results..." />
+    <input id="searchBox" v-model="value" @input="emitValue" placeholder="Search results..." />
   </div>
 </template>
 
